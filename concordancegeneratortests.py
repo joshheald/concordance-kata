@@ -59,6 +59,7 @@ class SpySplitter():
 
 	def lineSplit(self, line):
 		self.lineSplit_call_count += 1
+		return []
 
 	def linesForString(self, string):
 		self.linesForString_was_called = True
