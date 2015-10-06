@@ -34,6 +34,7 @@ class SplitterTests(unittest.TestCase):
 		self.assertEqual(len(lines), 2)
 
 	def test_splitIntoLinesIgnoresEmptyLines(self):
+		"""There can be no words on empty lines, so it doesn't make sense to return them."""
 		testString = "hello \n\n world\n how are you?"
 		lines = splitter.Splitter.linesForString(testString)
 		self.assertEqual(len(lines), 3)
