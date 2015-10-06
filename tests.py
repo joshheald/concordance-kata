@@ -51,34 +51,6 @@ class SplitterTests(unittest.TestCase):
 		lines = Splitter.linesForString(testString)
 		self.assertEqual(len(lines), 3)
 
-
-# class WordPositions():
-# 	word = ""
-# 	positions = []
-# 	def __init__(self, word="", positions=[]):
-# 		self.word = word
-# 		self.positions = positions
-
-
-# class WordPositionsTests(unittest.TestCase):
-# 	def test_init_canCreateAWordPositionsWithAWord(self):
-# 		expectedWord = "TestWord"
-# 		WordPositions(word=expectedWord)
-
-# 	def test_init_canRetrieveTheWordFromAWordPositions(self):
-# 		expectedWord = "AnotherWord"
-# 		sut = WordPositions(word=expectedWord)
-# 		self.assertEqual(expectedWord, sut.word)
-
-# 	def test_init_canCreateAWordPositionsWithAnArrayOfPositions(self):
-# 		expectedPositions = [42]
-# 		sut = WordPositions(positions=expectedPositions)
-
-# 	def test_init_canRetrieveAPositionsArrayFromAWordPositions(self):
-# 		expectedPositions = [42]
-# 		sut = WordPositions(positions=expectedPositions)
-# 		self.assertEqual(expectedPositions, sut.positions)
-
 class Concordance():
 	"""An alphabetical list of words with an associated list of line numbers"""
 	_wordlist = {}
@@ -86,8 +58,9 @@ class Concordance():
 		self._wordlist = dict()
 
 	def addInstanceOfWordAtLine(self, word="", lineNumber=-1):
-		self._wordlist.setdefault(word, [])
-		self._wordlist[word].append(lineNumber)
+		if word is not "" and lineNumber > -1:
+			self._wordlist.setdefault(word, set())
+			self._wordlist[word].add(lineNumber)
 
 	def entryForWord(self, word):
 		if word not in self._wordlist.keys():
@@ -115,6 +88,22 @@ class ConcordanceTests(unittest.TestCase):
 		expectedLineNumber = 15
 		sut = Concordance()
 		sut.addInstanceOfWordAtLine(lineNumber=expectedLineNumber)
+
+	def test_addInstanceOfWordAtLine_doesNotAddToTheConcordanceIfNoWordIsProvided(self):
+		sut = Concordance()
+		sut.addInstanceOfWordAtLine(lineNumber=1)
+		self.assertEqual([], sut.allEntries())
+
+	def test_addInstanceOfWordAtLine_doesNotAddToTheConcordanceIfNoLineNumberIsProvided(self):
+		sut = Concordance()
+		sut.addInstanceOfWordAtLine(word="Bruce")
+		self.assertEqual([], sut.allEntries())
+
+	def test_addInstanceOfWordAtLine_doesNotAddDuplicateLineNumbersWhenProvided(self):
+		sut = Concordance()
+		sut.addInstanceOfWordAtLine(word="Samwell", lineNumber=2)
+		sut.addInstanceOfWordAtLine(word="Samwell", lineNumber=2)
+		self.assertEqual("Samwell: 2", sut.entryForWord("Samwell"))
 
 	def test_entryForWord_returnsNoneWhenTheWordHasNotBeenStored(self):
 		expectedWord = "What's"
@@ -166,4 +155,3 @@ class ConcordanceTests(unittest.TestCase):
 		expectedConcordanceEntryList = ["Carta: 12", "John: 1", "Magna: 12"]
 		self.assertEqual(expectedConcordanceEntryList, sut.allEntries())
 
-		
