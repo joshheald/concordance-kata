@@ -1,35 +1,6 @@
-# -*- coding: utf-8 -*-
+JOHN, by the grace of God King of England, Lord of Ireland, Duke of Normandy and Aquitaine, and Count of Anjou, to his archbishops, bishops, abbots, earls, barons, justices, foresters, sheriffs, stewards, servants, and to all his officials and loyal subjects, Greeting.
 
-import concordance
-import splitter
-
-class ConcordanceGenerator():
-	"""Produces a concordance, a list of all the words present in a text, and the line numbers on which they occur."""
-	splitter = None
-	def __init__(self, splitter):
-		self.splitter = splitter
-
-	def concordance_for_string(self, string=None):
-		if string is None:
-			return None
-		
-		working_concordance = concordance.Concordance()
-		lines = self.splitter.lines_for_string(string)
-		for line_number, line in enumerate(lines, start=1):
-			words = self.splitter.line_split(line)
-			working_concordance = self._add_words_in_line_to_concordance(words, line_number, working_concordance)
-
-		return working_concordance
-
-	def _add_words_in_line_to_concordance(self, words, line_number, cdance):
-		for word in words:
-			cdance.add_instance_of_word_at_line(word, line_number)
-		return cdance
-
-if __name__ == "__main__":
-	magna_carta = """JOHN, by the grace of God King of England, Lord of Ireland, Duke of Normandy and Aquitaine, and Count of Anjou, to his archbishops, bishops, abbots, earls, barons, justices, foresters, sheriffs, stewards, servants, and to all his officials and loyal subjects, Greeting.
-
-
+ 
 
 KNOW THAT BEFORE GOD, for the health of our soul and those of our ancestors and heirs, to the honour of God, the exaltation of the holy Church, and the better ordering of our kingdom, at the advice of our reverend fathers Stephen, archbishop of Canterbury, primate of all England, and cardinal of the holy Roman Church, Henry archbishop of Dublin, William bishop of London, Peter bishop of Winchester, Jocelin bishop of Bath and Glastonbury, Hugh bishop of Lincoln, Walter Bishop of Worcester, William bishop of Coventry, Benedict bishop of Rochester, Master Pandulf subdeacon and member of the papal household, Brother Aymeric master of the knighthood of the Temple in England, William Marshal earl of Pembroke, William earl of Salisbury, William earl of Warren, William earl of Arundel, Alan de Galloway constable of Scotland, Warin Fitz Gerald, Peter Fitz Herbert, Hubert de Burgh seneschal of Poitou, Hugh de Neville, Matthew Fitz Herbert, Thomas Basset, Alan Basset, Philip Daubeny, Robert de Roppeley, John Marshal, John Fitz Hugh, and other loyal subjects:
 
@@ -179,9 +150,4 @@ In addition we have caused letters patent to be made for the barons, bearing wit
 
 Both we and the barons have sworn that all this shall be observed in good faith and without deceit. Witness the abovementioned people and many others.
 
-Given by our hand in the meadow that is called Runnymede, between Windsor and Staines, on the fifteenth day of June in the seventeenth year of our reign (i.e. 1215: the new regnal year began on 28 May). """
-	generator = ConcordanceGenerator(splitter=splitter.Splitter())
-	output = generator.concordance_for_string(magna_carta)
-	for entry in output.all_entries():
-		print entry
-
+Given by our hand in the meadow that is called Runnymede, between Windsor and Staines, on the fifteenth day of June in the seventeenth year of our reign (i.e. 1215: the new regnal year began on 28 May). 
