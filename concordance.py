@@ -12,14 +12,12 @@ class Concordance():
 
 	def entryForWord(self, word):
 		word = word.lower()
-		if word not in self._wordlist.keys():
-			return None
-		lineNumbers = "{0}".format(", ".join(str(lineNumber) for lineNumber in sorted(self._wordlist[word])))
-		return "{word}: {lineNumbers}".format(word=word, lineNumbers=lineNumbers)
+		if word in self._wordlist.keys():
+			lineNumbers = "{0}".format(", ".join(str(lineNumber) for lineNumber in sorted(self._wordlist[word])))
+			return "{word}: {lineNumbers}".format(word=word, lineNumbers=lineNumbers)
 
 	def allEntries(self):
 		entries = []
 		for word in self._wordlist:
 			entries.append(self.entryForWord(word))
-		print entries
 		return entries
