@@ -12,9 +12,10 @@ class Concordance():
 
 	def entryForWord(self, word):
 		word = word.lower()
-		if word in self._wordlist.keys():
-			lineNumbers = "{0}".format(", ".join(str(lineNumber) for lineNumber in sorted(self._wordlist[word])))
-			return "{word}: {lineNumbers}".format(word=word, lineNumbers=lineNumbers)
+		line_numbers = self._wordlist.get(word, None)
+		if line_numbers:
+			line_numbers_string = "{0}".format(", ".join(str(line_number) for line_number in sorted(line_numbers)))
+			return "{word}: {line_numbers}".format(word=word, line_numbers=line_numbers_string)
 
 	def allEntries(self):
 		entries = []
