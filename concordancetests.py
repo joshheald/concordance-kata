@@ -94,8 +94,11 @@ class ConcordanceTests(unittest.TestCase):
 		"""When we get all the entries, they should be returned in alphabetical order even if they weren't added that way"""
 		sut = concordance.Concordance()
 		sut.addInstanceOfWordAtLine("Magna", 12)
+		sut.addInstanceOfWordAtLine("simple", 2)
 		sut.addInstanceOfWordAtLine("Carta", 12)
 		sut.addInstanceOfWordAtLine("John", 1)
-		expectedConcordanceEntryList = ["carta: 12", "john: 1", "magna: 12"]
+		sut.addInstanceOfWordAtLine("Andrew", 17)
+		sut.addInstanceOfWordAtLine("bowl", 9)
+		expectedConcordanceEntryList = ["andrew: 17", "bowl: 9", "carta: 12", "john: 1", "magna: 12", "simple: 2"]
 		self.assertEqual(expectedConcordanceEntryList, sut.allEntries())
 

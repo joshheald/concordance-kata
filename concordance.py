@@ -21,4 +21,4 @@ class Concordance():
 		entries = []
 		for word in self._wordlist:
 			entries.append(self.entryForWord(word))
-		return entries
+		return sorted(entries)
