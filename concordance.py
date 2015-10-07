@@ -1,6 +1,6 @@
+# -*- coding: utf-8 -*-
 class Concordance():
 	"""An alphabetical list of words with an associated list of line numbers"""
-	_wordlist = {}
 	def __init__(self):
 		self._wordlist = dict()
 

@@ -23,7 +23,7 @@ class SplitterTests(unittest.TestCase):
 
 	def test_splitterRemovesUnpermittedPunctuation(self):
 		"""Test that unpermitted punctuation is removed in split"""
-		testString = "t'was: the best, and worst."
+		testString = "(t'was: the +best, and worst.*)"
 		words = splitter.Splitter().lineSplit(testString)
 		self.assertEqual(words, ["t'was", "the", "best", "and", "worst"])
 

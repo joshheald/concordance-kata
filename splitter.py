@@ -1,7 +1,8 @@
+# -*- coding: utf-8 -*-
 class Splitter():
 	def lineSplit(self, line):
 		"""Split a line of words into words"""
-		line = line.translate(None, '.:,')
+		line = line.translate(None, '.:,()+*')
 		return line.split()
 
 	def linesForString(self, string):
