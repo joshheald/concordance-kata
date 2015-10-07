@@ -9,21 +9,21 @@ class ConcordanceGenerator():
 	def __init__(self, splitter):
 		self.splitter = splitter
 
-	def concordanceForString(self, string=None):
+	def concordance_for_string(self, string=None):
 		if string is None:
 			return None
 		
 		working_concordance = concordance.Concordance()
-		lines = self.splitter.linesForString(string)
+		lines = self.splitter.lines_for_string(string)
 		for line_number, line in enumerate(lines, start=1):
-			words = self.splitter.lineSplit(line)
+			words = self.splitter.line_split(line)
 			working_concordance = self._add_words_in_line_to_concordance(words, line_number, working_concordance)
 
 		return working_concordance
 
 	def _add_words_in_line_to_concordance(self, words, line_number, cdance):
 		for word in words:
-			cdance.addInstanceOfWordAtLine(word, line_number)
+			cdance.add_instance_of_word_at_line(word, line_number)
 		return cdance
 
 if __name__ == "__main__":
