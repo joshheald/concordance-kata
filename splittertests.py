@@ -38,3 +38,21 @@ class SplitterTests(unittest.TestCase):
 		test_string = "hello \n\n world\n how are you?"
 		lines = splitter.Splitter().lines_for_string(test_string)
 		self.assertEqual(len(lines), 3)
+
+	def test_splitterRemovesBacktickApostrophesWhenUsedAsQuotationMarks(self):
+		"""Test that words quoted in `this' style appear without any quotation marks"""
+		test_string = "hello `world'"
+		words = splitter.Splitter().line_split(test_string)
+		self.assertEqual(words, ["hello", "world"])
+
+	def test_splitterRemovesBacktickApostropheQuotationsThatSpanMultipleWords(self):
+		"""Test that words quoted in `this style', across multiple words appear individually without any quotation marks"""
+		test_string = "hello `world, goodbye' cruel world."
+		words = splitter.Splitter().line_split(test_string)
+		self.assertEqual(words, ["hello", "world", "goodbye", "cruel", "world"])
+
+	def test_splitterRemovesMultipbleBacktickApostropheQuotationsOnTheSameLine(self):
+		"""Test that words quoted in `this' style appear without any quotation marks even when there's more than one on a line"""
+		test_string = "`hello' `world'"
+		words = splitter.Splitter().line_split(test_string)
+		self.assertEqual(words, ["hello", "world"])
